@@ -71,6 +71,64 @@ public class FindElementsTests {
         System.out.println(search.getText());
         System.out.println(search.getDomAttribute("class"));
     }
+
+    @Test
+    public void findElementByLinkText(){
+        WebElement linkText = driver.findElement(By.linkText("Let car work"));
+        System.out.println(linkText.getText());
+
+        WebElement linkText2 = driver.findElement(By.linkText("Los Angeles"));
+        System.out.println(linkText2.getText());
+    }
+
+    @Test
+    public void findElementByPartialLinkText(){
+        WebElement partialLinkText = driver.findElement(By.partialLinkText("work"));
+        System.out.println(partialLinkText.getText());
+    }
+
+    @Test
+    public void findElementByCssSelector(){
+        // driver.findElement(By.tagName("h1"));
+        // tagName h1 -> css "h1"
+        driver.findElement(By.cssSelector("h1"));
+
+        // driver.findElement(By.id("city"));
+        // id = ''city -> css #city
+        driver.findElement(By.cssSelector("#city"));
+
+        // driver.findElement(By.className("telephone"));
+        // className = 'telephone' -> css .telephone
+        driver.findElement(By.cssSelector(".telephone"));
+
+        // contains -> * (звёздочка это - ищи везде)
+        driver.findElement(By.cssSelector("[class*='container']"));
+
+        // start -> ^ (крышечка это - ищи в начале)
+        driver.findElement(By.cssSelector("[class^='input']"));
+
+        // end to -> $ (доллар это - ищи в конце)
+        driver.findElement(By.cssSelector("[class$='icon']"));
+
+        // [key='value']
+        driver.findElement(By.cssSelector("[placeholder='City']"));
+
+        // composite tag + class + class ( это составной cssSelector)
+        driver.findElement(By.cssSelector("a.navigation-link.active"));
+
+        // one step below (один шаг в низ)
+        driver.findElement(By.cssSelector(".logo>img"));
+
+        //<tag> or >class> or <id>:nth-child(n)
+        WebElement feedback = driver.findElement(By.cssSelector(".feedback-card:nth-child(1)"));
+        System.out.println(feedback.getText());
+
+        //
+        WebElement search = driver.findElement(By.cssSelector("navigation-link:nth-child(2)"));
+        System.out.println(search.getText());
+
+    }
+
     @AfterMethod(enabled = false)
     public void tearDown(){
         driver.quit();
